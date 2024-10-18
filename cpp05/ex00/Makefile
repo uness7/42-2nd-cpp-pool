@@ -1,10 +1,11 @@
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-
 S = src
+INC = inc
 
-TARGET = exec
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC)
+
+TARGET = output
 
 SRCS = src/main.cpp \
        src/Bureaucrat.cpp \
@@ -19,7 +20,7 @@ WHITE		=	\033[0m
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
+$(TARGET): $(OBJS) $(INC)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 	printf "$(GREEN)Compilation finished\n$(WHITE)"
 
