@@ -1,5 +1,5 @@
 # include "Bureaucrat.hpp"
-# include "Form.hpp"
+# include "AForm.hpp"
 
 Bureaucrat::Bureaucrat(void) : _name("unnamed"), _grade(LOWEST_GRADE) {}
 
@@ -40,7 +40,7 @@ void	Bureaucrat::decrementGrade() {
 	this->_grade += 1;
 }
 
-void	Bureaucrat::signForm(const Form &form) const
+void	Bureaucrat::signForm(const AForm &form) const
 {
 	if (form.getIsSigned() == true)
 	{
@@ -51,6 +51,19 @@ void	Bureaucrat::signForm(const Form &form) const
 		std::cout << this->getName() << " could not sign " << form.getName();
 		std::cout << " because he doesn't have qualifying grade" << std::endl;
 	}
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try {
+		form.execute(*this);
+		std::cout
+			<< this->getName() << " executed "
+			<< form.getName() << " " << std::endl;
+	} catch(const std::exception& e) {
+		std::cout << this->getName() << " couldn't execute " << form.getName()
+			<< " because " << e.what() << std::endl;
+	}   
 }
 
 // Exceptions

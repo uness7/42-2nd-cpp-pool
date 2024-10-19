@@ -16,19 +16,16 @@ class Bureaucrat
 	public:
 		Bureaucrat(void);
 		Bureaucrat(const std::string &name, int grade);
-		Bureaucrat(const Bureaucrat &other);
-		Bureaucrat &operator=(const Bureaucrat &other);
+		Bureaucrat(const Bureaucrat & other);
+		Bureaucrat &operator=(const Bureaucrat& other);
 		~Bureaucrat(void);
 
-		/* Getters */
 		std::string	getName() const;
 		int 		getGrade() const;
 
-		/* Member Functions */
 		void		incrementGrade();
 		void		decrementGrade();
 
-		/* Nested Exception Classes */
 		class GradeTooHighException : public std::exception {
 			public:
 				virtual const char* what() const throw();
@@ -37,7 +34,6 @@ class Bureaucrat
 			public:
 				virtual  const char* what() const throw();
 		};
-
 };
 
 std::ostream &operator<<(std::ostream &o, const Bureaucrat &bur);

@@ -22,16 +22,13 @@ class Bureaucrat
 		Bureaucrat &operator=(const Bureaucrat &other);
 		~Bureaucrat(void);
 
-		/* Getters */
 		std::string	getName() const;
 		int 		getGrade() const;
 
-		/* Member Functions */
 		void		incrementGrade();
 		void		decrementGrade();
-		void		signForm(const Form &form) const;
+		void		signForm(const Form &form);
 
-		/* Nested Exception Classes */
 		class GradeTooHighException : public std::exception
 		{
 			public:

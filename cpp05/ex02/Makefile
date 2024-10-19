@@ -8,11 +8,10 @@ TARGET = exec
 
 SRCS = src/main.cpp \
        src/Bureaucrat.cpp \
-       src/Form.cpp \
        src/AForm.cpp \
        src/ShrubberyCreationForm.cpp \
-       src/RobotomyRequestForm \
-       src/PresidentialPardonForm \
+#       src/RobotomyRequestForm \
+#       src/PresidentialPardonForm \
 
 OBJS = $(SRCS:.cpp=.o)
 

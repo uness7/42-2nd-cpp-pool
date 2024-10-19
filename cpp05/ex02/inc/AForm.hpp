@@ -3,8 +3,8 @@
 
 # include <iostream>
 # include <string>
-
-class Bureaucrat;
+# include "Bureaucrat.hpp"
+# include <fstream>
 
 class AForm 
 {
@@ -19,7 +19,7 @@ class AForm
 		AForm(const std::string &name, const int gradeToSign, const int gradeToExecute);
 		AForm(const AForm &other);
 		AForm &operator=(const AForm &other);
-		~AForm(void);
+		virtual ~AForm(void);
 
 		std::string	getName(void) const;
 		int		getGradeToSign(void) const;
@@ -36,7 +36,14 @@ class AForm
 			public:
 				virtual  const char* what() const throw();
 		};
-		void	beSigned(const Bureaucrat &bur) = 0;
+		class FormNotSignedException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+
+		void	beSigned(const Bureaucrat &bur);
+		virtual void	execute(Bureaucrat const & executor) const = 0;
 };
 
 std::ostream &operator<<(std::ostream &o, const AForm &bur);

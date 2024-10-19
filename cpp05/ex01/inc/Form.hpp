@@ -17,19 +17,17 @@ class Form
 	public:
 		Form(void);
 		Form(		const std::string &name,
-				int gradeToSign, 
-				int gradeToExecute);
+				const int gradeToSign, 
+				const int gradeToExecute);
 		Form(const Form &other);
 		Form &operator=(const Form &other);
         	~Form(void);
 
-		// Getters
 		std::string	getName(void) const;
 		int		getGradeToSign(void) const;
 		int		getGradeToExecute(void) const;
 		bool		getIsSigned(void) const;
 
-		// Exceptions
 		class GradeTooHighException : public std::exception {
 			public:
 				virtual const char* what() const throw();
@@ -39,7 +37,6 @@ class Form
 				virtual  const char* what() const throw();
 		};
 
-		// Member Functions
 		void	beSigned(const Bureaucrat &bur);
 };
 

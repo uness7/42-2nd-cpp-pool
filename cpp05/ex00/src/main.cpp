@@ -1,4 +1,4 @@
-# include "../inc/Bureaucrat.hpp"
+# include "Bureaucrat.hpp"
 
 int     main()
 {
@@ -10,6 +10,7 @@ int     main()
 		// thus, exception should take place
 		obj.decrementGrade(); // grade = 151
 		std::cout << obj << std::endl;
+
 	} catch (Bureaucrat::GradeTooLowException &e) {
 		std::cout << e.what() << std::endl;
 	} catch(std::exception &e) {
