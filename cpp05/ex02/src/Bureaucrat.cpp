@@ -3,10 +3,9 @@
 
 Bureaucrat::Bureaucrat(void) : _name("unnamed"), _grade(LOWEST_GRADE) {}
 
-Bureaucrat::Bureaucrat(const Bureaucrat &other) : _name(other._name), _grade(other._grade) {}
+Bureaucrat::Bureaucrat(const Bureaucrat &src) : _name(src._name), _grade(src._grade) {}
 
-Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name)
-{
+Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name) {
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > 150)
@@ -14,36 +13,28 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name)
 	this->_grade = grade;
 }
 
-Bureaucrat 	&Bureaucrat::operator=(const Bureaucrat &other)
-{
-	if (this != &other)
-	{
-		this->_grade = other._grade;
-	}
-	return *this;
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &src) {
+    if (this != &src) {
+        this->_grade = src._grade;
+    }
+    return *this;
 }
 
-Bureaucrat::~Bureaucrat(void) {}
-
-std::string	Bureaucrat::getName(void) const
-{
+std::string Bureaucrat::getName() const {
 	return this->_name;
 }
 
-int 	Bureaucrat::getGrade(void) const
-{
+int 	Bureaucrat::getGrade() const {
 	return this->_grade;
 }
 
-void	Bureaucrat::incrementGrade(void)
-{
+void	Bureaucrat::incrementGrade() {
 	if (getGrade() - 1 <= HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	this->_grade -= 1;
 }
 
-void	Bureaucrat::decrementGrade(void)
-{
+void	Bureaucrat::decrementGrade() {
 	if (getGrade() + 1 > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	this->_grade += 1;
@@ -63,17 +54,15 @@ void	Bureaucrat::signForm(const Form &form) const
 }
 
 // Exceptions
-const char* Bureaucrat::GradeTooHighException::what() const throw()
-{
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
 	return "Grade is too high! Must be at least 1.";
 }
 
-const char* Bureaucrat::GradeTooLowException::what() const throw()
-{
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
 	return "Grade is too low! Must be at most 150.";
 }
 
-// output overloaded operator
+// << op
 std::ostream	&operator <<(std::ostream &o, const Bureaucrat &bur)
 {
 	o << bur.getName() << ", bureaucrat grade " << bur.getGrade() << ".";

@@ -1,20 +1,22 @@
 CXX = c++
-
 INC = inc
-
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC)
 
 S = src
 
-TARGET = output 
+TARGET = exec
 
 SRCS = src/main.cpp \
        src/Bureaucrat.cpp \
        src/Form.cpp \
+       src/AForm.cpp \
+       src/ShrubberyCreationForm.cpp \
+       src/RobotomyRequestForm \
+       src/PresidentialPardonForm \
 
 OBJS = $(SRCS:.cpp=.o)
 
-# colors 
+# colors for printing
 BLUE		=	\033[34m
 YELLOW		=	\033[33m
 GREEN		=	\033[32m

@@ -25,14 +25,17 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade)
 }
 
 /* Assignment operator */
-Bureaucrat &Bureaucrat::operator=(const Bureaucrat &src)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-    if (this != &src)
-    {
-        this->_grade = src._grade;
-    }
-    return *this;
+	if (this != &other)
+	{
+		this->_grade = other.getGrade();
+	}
+	return *this;
 }
+
+/* Default Destructor */
+Bureaucrat::~Bureaucrat(void) {}
 
 /* Getters */
 std::string Bureaucrat::getName() const

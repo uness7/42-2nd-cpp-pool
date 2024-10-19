@@ -7,18 +7,15 @@
 # define HIGHEST_GRADE 1
 # define LOWEST_GRADE 150
 
+class Form;
+
 class Bureaucrat
 {
-	private:
-		const std::string   	_name;
-		int 			_grade;
-
 	public:
 		Bureaucrat(void);
 		Bureaucrat(const std::string &name, int grade);
-		Bureaucrat(const Bureaucrat &other);
-		Bureaucrat &operator=(const Bureaucrat &other);
-		~Bureaucrat(void);
+		Bureaucrat(const Bureaucrat &src);
+		Bureaucrat	&operator =(const Bureaucrat &src);
 
 		/* Getters */
 		std::string	getName() const;
@@ -27,19 +24,25 @@ class Bureaucrat
 		/* Member Functions */
 		void		incrementGrade();
 		void		decrementGrade();
+		void		signForm(const Form &form) const;
 
 		/* Nested Exception Classes */
 		class GradeTooHighException : public std::exception {
 			public:
 				virtual const char* what() const throw();
 		};
+
 		class GradeTooLowException : public std::exception {
 			public:
 				virtual  const char* what() const throw();
+
 		};
 
+	private:
+		const std::string   _name;
+		int 				_grade;
 };
 
-std::ostream &operator<<(std::ostream &o, const Bureaucrat &bur);
+std::ostream	&operator <<(std::ostream &o, const Bureaucrat &bur);
 
 #endif
