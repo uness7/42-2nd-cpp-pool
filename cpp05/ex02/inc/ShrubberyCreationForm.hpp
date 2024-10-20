@@ -5,7 +5,6 @@
 # include <string>
 # include "AForm.hpp"
 
-
 class Bureaucrat;
 class AForm;
 
@@ -13,7 +12,6 @@ class ShrubberyCreationForm : public AForm
 {
 	private:
 		std::string	_target;
-
 	public:
 		ShrubberyCreationForm(void);
 		ShrubberyCreationForm( std::string target );
@@ -21,8 +19,8 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm( const ShrubberyCreationForm& other );
 		ShrubberyCreationForm &operator=( const ShrubberyCreationForm& other );
 
-		void    execute(Bureaucrat const & executor) const;
+		void    execute(const Bureaucrat & executor) const;
 };
 
-#endif
+# endif
 

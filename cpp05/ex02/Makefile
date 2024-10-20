@@ -4,14 +4,14 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC)
 
 S = src
 
-TARGET = exec
+TARGET = output 
 
 SRCS = src/main.cpp \
        src/Bureaucrat.cpp \
        src/AForm.cpp \
        src/ShrubberyCreationForm.cpp \
-#       src/RobotomyRequestForm \
-#       src/PresidentialPardonForm \
+       src/RobotomyRequestForm.cpp \
+       src/PresidentialPardonForm.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -32,6 +32,7 @@ clean:
 
 fclean: clean
 	rm -f $(TARGET)
+	rm -f *_shrubbery
 	printf "$(YELLOW)Directory is cleaned\n$(WHITE)"
 
 re: fclean all
