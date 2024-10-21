@@ -22,29 +22,37 @@ const char*     Intern::UnknownFormException::what() const throw() {
 	return "Form is unknown";
 }
 
-
-AForm*	Intern::makeForm(std::string name, std::string target)
+AForm*	Intern::makeForm( std::string name, std::string target )
 {
-	int		i;
-	std::string	chosen;
-	t_form	data[] =
+	t_form  data[] =
+        {
+                { "presidential pardon", new PresidentialPardonForm(target) },
+                { "robotomy request", new RobotomyRequestForm(target) },
+                { "shrubbery creation", new ShrubberyCreationForm(target) },
+                { "", NULL }
+        };
+	AForm	*result = NULL;
+
+	int	i;
+	for (i = 0 ; data[i].form != NULL; i++)
 	{
-		{ "presidential pardon", new PresidentialPardonForm(target) },
-		{ "robotomy request", new RobotomyRequestForm(target) },
-		{ "shrubbery creation", new ShrubberyCreationForm(target) },
-		{ "", NULL }
-	};
-	chosen = name;
-	i = 0;
-	while (data[i].form != NULL)
-	{
-		if (data[i].type == chosen)
+		if (data[i].type == name)
 		{
-			std::cout << "Intern creates " << chosen << std::endl;
-			return data[i].form;
+			std::cout << "Intern creates " << name << std::endl;
+			result = data[i].form;
+			break ;
 		}
-		i++;
 	}
-	throw  UnknownFormException();
-	return (NULL);
+	// Delete all forms except the matching one
+	for (int j = 0; data[j].form != NULL; j++)
+	{
+		if (data[j].form != result)  // Don't delete the one we're returning
+			delete data[j].form;
+	}
+
+	if (result == NULL)
+		throw UnknownFormException();
+
+	std::cout << "Intern creates " << name << std::endl;
+	return result;
 }

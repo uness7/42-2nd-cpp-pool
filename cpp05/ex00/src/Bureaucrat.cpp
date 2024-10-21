@@ -1,6 +1,5 @@
 # include "Bureaucrat.hpp"
 
-
 Bureaucrat::Bureaucrat(void) {}
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name), _grade(grade)
