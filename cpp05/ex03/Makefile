@@ -16,7 +16,6 @@ SRCS = src/main.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
-# colors for printing
 BLUE		=	\033[34m
 YELLOW		=	\033[33m
 GREEN		=	\033[32m

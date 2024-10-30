@@ -1,13 +1,15 @@
 # include "AForm.hpp"
 # include "Bureaucrat.hpp"
 
-AForm::AForm() 
+/* Default constructor */
+AForm::AForm(void) 
 	: 
 		_name("unnamed"), 
 		_gradeToSign(HIGHEST_GRADE), 
         	_gradeToExecute(HIGHEST_GRADE), 
 		_isSigned(false) {}
 
+/* Param. constructor  */
 AForm::AForm(const std::string &name, const int gradeSign, const int gradeExecute)
 	:
 		_name(name),
@@ -21,8 +23,10 @@ AForm::AForm(const std::string &name, const int gradeSign, const int gradeExecut
 	this->_isSigned = false;
 }
 
+/* Destructor */
 AForm::~AForm(void) {}
 
+/* Copy constructor */
 AForm::AForm(const AForm &other)
 	: 
 		_name(other._name), 
@@ -32,6 +36,7 @@ AForm::AForm(const AForm &other)
 {
 }
 
+/* Assignment overloaded operator */
 AForm	&AForm::operator=(const AForm &other)
 {
 	if (this != &other)
@@ -62,6 +67,7 @@ bool	AForm::getIsSigned(void) const
 	return this->_isSigned;
 }
 
+/* Member functions */
 void    AForm::beSigned(const Bureaucrat &bur)
 {
 	if (bur.getGrade() > this->_gradeToSign)
@@ -69,28 +75,30 @@ void    AForm::beSigned(const Bureaucrat &bur)
 	this->_isSigned = true;
 }
 
-// Exceptions
+/* Exceptions */
 const char*	AForm::GradeTooHighException::what() const throw()
 {
-	return "The Bureaucrat's grade is unfortunately too higher than the form's to-sign grade!";
+	return "The Bureaucrat's grade is unfortunately too higher than the form's to-sign grade!\n";
 }
 
 const char*	AForm::GradeTooLowException::what() const throw()
 {
-	return "The Bureaucrat's grade is unfortunately lower than the form's to-sign grade!";
+	return "The Bureaucrat's grade is unfortunately lower than the form's to-sign grade!\n";
 }
 
 const char*	AForm::FormNotSignedException::what() const throw()
 {
-	return "The form is not signed";
+	return "The form is not signed\n";
 }
 
+/* Insertion overloaded operator */
 std::ostream &operator<<(std::ostream &o, const AForm &form)
 {
-        o << form.getName() 
-		<< ", grade for signing: " 
-		<< form.getGradeToSign() 
-		<< ", grade for executing: " ;
-        o << form.getGradeToExecute() << "." << std::endl;
+        o 
+			<< form.getName() 
+			<< ", grade for signing: " 
+			<< form.getGradeToSign() 
+			<< ", grade for executing: "
+			<< form.getGradeToExecute() << "." << std::endl;
         return o;
 }

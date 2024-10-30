@@ -1,8 +1,6 @@
 CXX = c++
-
 S = src
 INC = inc
-
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC)
 
 TARGET = output
@@ -12,7 +10,6 @@ SRCS = src/main.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
-# colors 
 BLUE		=	\033[34m
 YELLOW		=	\033[33m
 GREEN		=	\033[32m
