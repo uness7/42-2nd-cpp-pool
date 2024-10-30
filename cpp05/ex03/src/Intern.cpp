@@ -4,18 +4,15 @@
 # include "PresidentialPardonForm.hpp"
 
 /* Default constructor */
-Intern::Intern( void ) {
-	const std::string formNames[3] = {
-		"shrubbery creation", 
-		"robotomy request", 
-		"presidential pardon"
-	};
-
+Intern::Intern( void )
+{
+	_formNames[0] = "shrubbery creation";
+	_formNames[1] = "presidential pardon";
+	_formNames[2] = "robotomy request";
 	_makeForm[0] = &Intern::makeShrubberyCreationForm;
 	_makeForm[1] = &Intern::makePresidentialPardonForm;
 	_makeForm[2] = &Intern::makeRobotomyRequestForm;
 }
-
 
 /* Destructor */
 Intern::~Intern( void ) {}
@@ -29,7 +26,12 @@ Intern::Intern( const Intern & other )
 /* Assignment overloaded operator */
 Intern &Intern::operator=( const Intern & other )
 {
-	(void)other;
+	if (this != &other)
+	{
+		this->_formNames[0] = other._formNames[0];
+		_makeForm[0] = other._makeForm[0];
+
+	}
 	return *this;
 }
 
@@ -54,17 +56,16 @@ AForm*	Intern::makeRobotomyRequestForm(const std::string target)
 	return new RobotomyRequestForm(target);
 }
 
-AForm*	Intern::makeForm( std::string name, std::string target )
+AForm*	Intern::makeForm(std::string name, const std::string target )
 {
-	int	i = 0;
-	while (i < 3)
+	int	i = -1;
+	while (++i < 3)
 	{
 		if (_formNames[i] == name)
 		{
 			std::cout << "Intern creates " << std::endl;
-			return ((this->*_makeForm[i])(target));
+			return (this->*_makeForm[i])(target);
 		}
-		i++;
 	}
 	throw UnknownFormException();
 	return NULL;

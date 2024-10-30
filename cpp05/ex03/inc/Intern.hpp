@@ -5,11 +5,16 @@
 # include <string>
 # include "AForm.hpp"
 
+/*
+   typedef return_type (*functionPointerType)(params)
+   FunctionPointerType functionPointerArray[arraySize];
+*/
+
 class Intern
 {
 	private:
-		const std::string _formNames[3];
-		AForm*	(*_makeForm[3])(const std::string);
+		std::string _formNames[3];
+		AForm*	(Intern::*_makeForm[3])(const std::string);
 
 	public:
 		Intern( void );
@@ -22,8 +27,7 @@ class Intern
 				virtual  const char* what() const throw();
 		};
 
-		AForm*		makeForm(std::string name, std::string target);
-
+		AForm*		makeForm(std::string name, const std::string target);
 		AForm*		makeShrubberyCreationForm(const std::string target);
 		AForm*		makePresidentialPardonForm(const std::string target);
 		AForm*		makeRobotomyRequestForm(const std::string target);
