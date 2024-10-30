@@ -22,12 +22,12 @@ class Bureaucrat
 		Bureaucrat &operator=(const Bureaucrat &other);
 		~Bureaucrat(void);
 
-		std::string	getName() const;
-		int 		getGrade() const;
+		std::string	getName(void) const;
+		int 		getGrade(void) const;
 
-		void		incrementGrade();
-		void		decrementGrade();
-		void		signForm(const Form &form);
+		void		incrementGrade(void);
+		void		decrementGrade(void);
+		void		signForm(Form &form);
 
 		class GradeTooHighException : public std::exception
 		{
@@ -39,7 +39,6 @@ class Bureaucrat
 			public:
 				virtual  const char* what() const throw();
 		};
-
 };
 
 std::ostream	&operator <<(std::ostream &o, const Bureaucrat &bur);

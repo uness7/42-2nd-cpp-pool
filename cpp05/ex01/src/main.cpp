@@ -4,21 +4,33 @@
 int     main(void)
 {
 	try {
-		Bureaucrat  obj("waizi", 1);
-		Form    form("A4", 1, 9);
+		try {
+			Bureaucrat  obj("waizi", 8);
+			Form    form("A4", 7, 7);
 
-		std::cout << obj << std::endl;
-		std::cout << form << std::endl;
+			std::cout << obj << std::endl;
+			std::cout << form << std::endl;
+			obj.signForm(form);
+			std::cout << form << std::endl;
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
 
-		form.beSigned(obj);
-		obj.signForm(form);
-	} catch(Bureaucrat::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	} catch(Bureaucrat::GradeTooHighException &e) {
-		std::cout << e.what() << std::endl;
-	} catch(Form::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	} catch(Form::GradeTooHighException &e) {
+		try {
+			Bureaucrat  obj("Shady", 1);
+			Form    form("A4", 2, 7);
+
+			std::cout << obj << std::endl;
+			std::cout << form << std::endl;
+			obj.signForm(form);
+			std::cout << form << std::endl;
+
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
+
+	} catch(std::exception &e)
+	{
 		std::cout << e.what() << std::endl;
 	}
 	return (0);

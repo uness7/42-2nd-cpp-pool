@@ -1,13 +1,15 @@
 # include "AForm.hpp"
 # include "Bureaucrat.hpp"
 
-AForm::AForm() 
+/* Default constructor */
+AForm::AForm(void) 
 	: 
 		_name("unnamed"), 
 		_gradeToSign(HIGHEST_GRADE), 
         	_gradeToExecute(HIGHEST_GRADE), 
 		_isSigned(false) {}
 
+/* Param. constructor */
 AForm::AForm(const std::string &name, const int gradeSign, const int gradeExecute)
 	:
 		_name(name),
@@ -21,8 +23,10 @@ AForm::AForm(const std::string &name, const int gradeSign, const int gradeExecut
 	this->_isSigned = false;
 }
 
+/* Destructor */
 AForm::~AForm(void) {}
 
+/* Copy constructor */
 AForm::AForm(const AForm &other)
 	: 
 		_name(other._name), 
@@ -32,6 +36,7 @@ AForm::AForm(const AForm &other)
 {
 }
 
+/* Ass. overloaded oeprator */
 AForm	&AForm::operator=(const AForm &other)
 {
 	if (this != &other)
@@ -85,12 +90,17 @@ const char*	AForm::FormNotSignedException::what() const throw()
 	return "The form is not signed";
 }
 
+/* Insertion overloaded operator */
 std::ostream &operator<<(std::ostream &o, const AForm &form)
 {
         o << form.getName() 
 		<< ", grade for signing: " 
 		<< form.getGradeToSign() 
-		<< ", grade for executing: " ;
-        o << form.getGradeToExecute() << "." << std::endl;
+		<< ", grade for executing: " 
+        << form.getGradeToExecute()
+		<< ", is signed: "
+		<< (form.getIsSigned() ? "true" : "false")
+		<< "."
+		<< std::endl;
         return o;
 }

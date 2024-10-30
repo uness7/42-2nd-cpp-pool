@@ -3,8 +3,10 @@
 
 # include <iostream>
 # include <string>
-# include "Bureaucrat.hpp"
 # include <fstream>
+# include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class AForm 
 {
@@ -41,6 +43,7 @@ class AForm
 			public:
 				virtual const char* what() const throw();
 		};
+
 		void	beSigned(const Bureaucrat &bur);
 		virtual void	execute(Bureaucrat const & executor) const = 0;
 };

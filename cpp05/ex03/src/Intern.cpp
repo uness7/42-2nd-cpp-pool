@@ -3,56 +3,69 @@
 # include "RobotomyRequestForm.hpp"
 # include "PresidentialPardonForm.hpp"
 
-Intern::Intern( void ) {}
+/* Default constructor */
+Intern::Intern( void ) {
+	const std::string formNames[3] = {
+		"shrubbery creation", 
+		"robotomy request", 
+		"presidential pardon"
+	};
 
+	_makeForm[0] = &Intern::makeShrubberyCreationForm;
+	_makeForm[1] = &Intern::makePresidentialPardonForm;
+	_makeForm[2] = &Intern::makeRobotomyRequestForm;
+}
+
+
+/* Destructor */
 Intern::~Intern( void ) {}
 
+/* Copy constructor */
 Intern::Intern( const Intern & other )
 {
 	*this = other;
 }
 
+/* Assignment overloaded operator */
 Intern &Intern::operator=( const Intern & other )
 {
 	(void)other;
 	return *this;
 }
 
+/* Exceptions */
 const char*     Intern::UnknownFormException::what() const throw() {
-	return "Form is unknown";
+	return "Form is unknown\n";
+}
+
+/* Member functions */
+AForm*	Intern::makeShrubberyCreationForm(const std::string target)
+{
+	return new ShrubberyCreationForm(target);
+}
+
+AForm*	Intern::makePresidentialPardonForm(const std::string target)
+{
+	return new PresidentialPardonForm(target);
+}
+
+AForm*	Intern::makeRobotomyRequestForm(const std::string target)
+{
+	return new RobotomyRequestForm(target);
 }
 
 AForm*	Intern::makeForm( std::string name, std::string target )
 {
-	t_form  data[] =
-        {
-                { "presidential pardon", new PresidentialPardonForm(target) },
-                { "robotomy request", new RobotomyRequestForm(target) },
-                { "shrubbery creation", new ShrubberyCreationForm(target) },
-                { "", NULL }
-        };
-	AForm	*result = NULL;
-
-	int	i;
-	for (i = 0 ; data[i].form != NULL; i++)
+	int	i = 0;
+	while (i < 3)
 	{
-		if (data[i].type == name)
+		if (_formNames[i] == name)
 		{
-			std::cout << "Intern creates " << name << std::endl;
-			result = data[i].form;
-			break ;
+			std::cout << "Intern creates " << std::endl;
+			return ((this->*_makeForm[i])(target));
 		}
+		i++;
 	}
-	// Delete all forms except the matching one
-	for (int j = 0; data[j].form != NULL; j++)
-	{
-		if (data[j].form != result)  // Don't delete the one we're returning
-			delete data[j].form;
-	}
-
-	if (result == NULL)
-		throw UnknownFormException();
-
-	std::cout << "Intern creates " << name << std::endl;
-	return result;
+	throw UnknownFormException();
+	return NULL;
 }

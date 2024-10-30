@@ -1,14 +1,18 @@
 # include "RobotomyRequestForm.hpp"
 
+/* Default constructor */
 RobotomyRequestForm::RobotomyRequestForm(void) 
 	: AForm("unnamed", 72, 45), _target("nobody") {}
 
+/* Param. constructor */
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
 	: AForm("robotomy", 72, 45), _target(target) {}
 
+/* Copy constructor */
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
 	: AForm(other), _target(other._target) {}
 
+/* Assignment overloaded operator */
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {
 	if (this != &other)
@@ -19,8 +23,10 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 	return *this;
 }
 
+/* Destructor */
 RobotomyRequestForm::~RobotomyRequestForm(void) {}
 
+/* Member functions */
 void	RobotomyRequestForm::execute( const Bureaucrat& executor) const
 {
 	if (this->getIsSigned() == false)

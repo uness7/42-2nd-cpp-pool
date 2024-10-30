@@ -1,14 +1,19 @@
 # include "ShrubberyCreationForm.hpp"
+# include "Bureaucrat.hpp"
 
+/* Default constructor */
 ShrubberyCreationForm::ShrubberyCreationForm(void)
 	: AForm("unnamed", 145, 137), _target("nobody") {}
 
+/* Param. constructor  */
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
 	: AForm("Shrubbery", 145, 137), _target(target) {}
 
+/* Copy constructor  */
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
 	: AForm(other), _target(other._target) {} 
 
+/* Assignment overloaded operator */
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
 	if (this != &other)
@@ -19,8 +24,10 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return *this;
 }
 
+/* Destructor */
 ShrubberyCreationForm::~ShrubberyCreationForm(void) {}
 
+/* Member functions */
 void	ShrubberyCreationForm::execute(const Bureaucrat & executor) const
 {
 	if (this->getIsSigned() == false)
