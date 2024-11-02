@@ -1,7 +1,7 @@
-# include <iostream>
+#include "ScalarConverter.h"
 
 int	main(void)
 {
-	std::cout << "Hello, world!" << std::endl;
-	return 0;
+	ScalarConverter::convert("a");
+	return (0);
 }

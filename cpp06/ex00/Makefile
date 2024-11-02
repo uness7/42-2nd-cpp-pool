@@ -1,20 +1,32 @@
-SHELL=/bin/bash # specify the shell
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-compiler := c++
-flags := -Wall -Wextra -Werror -std=c++98 -g
-target := output
+TARGET = output
+SRCS = main.cpp\
+       ScalarConverter.cpp\
 
-# Notes:
-# - to refer to variables, we can use either echo $(x) or echo ${x}
-# - all is a default rule that is used to rum multiple commands at the same time
+OBJS = $(SRCS:.cpp=.o)
 
-all: main.o
+BLUE		=	\033[34m
+YELLOW		=	\033[33m
+GREEN		=	\033[32m
+WHITE		=	\033[0m
 
-main.o: main.cpp
-	$(compiler) main.cpp -o $(target) -I$(flags)
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+	printf "$(GREEN)Compilation finished\n$(WHITE)"
 
 clean:
-	rm -f $(target)
+	rm -f $(OBJS)
 
-.PHONY:
-	clean
+fclean: clean
+	rm -f $(TARGET)
+	printf "$(YELLOW)Directory is cleaned\n$(WHITE)"
+
+re: fclean all
+
+.PHONY: all clean fclean re
+
+.SILENT:
