@@ -3,8 +3,8 @@
 
 # include <iostream>
 
-/************ swap *******************/
-template <class T>
+/*************** swap *******************/
+template <typename T>
 void
 my_swap(T& a, T& b) {
     T   c;
@@ -15,8 +15,8 @@ my_swap(T& a, T& b) {
     return ;
 }
 
-/*********** min ******************/
-template <class T>
+/*************** min ******************/
+template <typename T>
 T
 my_min(T& a, T& b) {
     T   min;
@@ -27,8 +27,8 @@ my_min(T& a, T& b) {
     return min;
 }
 
-/*********** max ******************/
-template <class T>
+/************** max ******************/
+template <typename T>
 T
 my_max(T& a, T& b) {
     T   max;
