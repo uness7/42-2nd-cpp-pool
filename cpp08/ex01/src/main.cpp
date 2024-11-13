@@ -2,22 +2,38 @@
 
 int	main(int, char **)
 {
-	Span sp = Span(3);
+	try {
+		Span sp = Span(10000);
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+	
+		std::cout << "Current Size: " << sp.getNumbers().size() << std::endl;
+		std::cout << "SHORTEST SPAN: " << sp.shortestSpan() << std::endl;
+		std::cout << "LONGEST SPAN: " << sp.longestSpan() << std::endl;
+
+	} catch(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+
+	std::cout << "\n\n";
 
 	try {
-		sp.addNumber(99);
-		sp.addNumber(990);
-		sp.addNumber(993);
-		// sp.addNumber(9); this will throw an exception
+		std::vector<int>	vect;
+		Span			sp2(10);
+		for (int i = 0; i < 10; i++)
+			vect.push_back(rand() % 100);
+		sp2.addNumber(vect.begin(), vect.end());
 
-		std::cout << sp.getNumbers().at(0) << std::endl;
-		std::cout << sp.getNumbers().at(1) << std::endl;
-		std::cout << sp.getNumbers().at(2) << std::endl;
+		std::cout << "Current Size: " << sp2.getNumbers().size() << std::endl;
+		std::cout << "SHORTEST SPAN: " << sp2.shortestSpan() << std::endl;
+		std::cout << "LONGEST SPAN: " << sp2.longestSpan() << std::endl;
 
 	} catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
 	}
-
 
 	return 0;
 }
