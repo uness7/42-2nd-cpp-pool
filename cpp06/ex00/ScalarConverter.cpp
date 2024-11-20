@@ -83,9 +83,9 @@ void	convertNan(std::string const value)
 {
 	(void)value;
 	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: " << 0 << std::endl;
-	std::cout << "float: " << 0 << std::endl;
-	std::cout << "double: " << 0 << std::endl;
+	std::cout << "int: impossible" << std::endl;
+	std::cout << "float: nanf" << std::endl;
+	std::cout << "double: nan" << std::endl;
 }
 
 void	convertInt(std::string const value)
@@ -114,22 +114,61 @@ void	convertChar(std::string const value)
 
 bool	isDouble(std::string const value)
 {
+	(void)value;
+	if (value.find('.') != std::string::npos)
+	{
+		long unsigned int	i = 0;
+		while (std::isdigit(value[i]) || value[i] == '.')
+			i++;
+		if (i == value.length())
+			return (true);
+	}
 	return false;
 }
 
 bool	isFloat(std::string const value)
 {
+	(void)value;
+	if (value.length() - 1 == 'f')
+	{
+		long unsigned int	i = 0;
+		while (i < value.length() - 1 && (std::isdigit(value[i]) || value[i] == '.'))
+			i++;
+		if (i == value.length())
+			return (true);
+	}
 	return false;
 }
 
-void	converDouble(std::string const value)
+void	convertDouble(std::string const value)
 {
-	//
+	double	number = atof(value.c_str());
+
+	if (number < 0 || number > 127)
+		std::cout << "char: impossible" << std::endl;
+	else if (number < 32 || number == 127)
+		std::cout << "char: non-displayable" << std::endl;
+	else
+		std::cout << "char: " << static_cast<char>(number) << std::endl;
+	std::cout << "int: " << static_cast<int>(number) << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(2) 
+		<< static_cast<float>(number) << "f" << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(2) << number << std::endl;
 }
 
 void	convertFloat(std::string const value)
 {
-	//
+	float	number = atof(value.c_str());
+
+	if (number < 0 || number > 127)
+		std::cout << "char: impossible" << std::endl;
+	else if (number < 32 || number == 127)
+		std::cout << "char: non-displayable" << std::endl;
+	else
+		std::cout << "char: " << static_cast<char>(number) << std::endl;
+	std::cout << "int: " << static_cast<int>(number) << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(2) << number << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(2) << static_cast<double>(number) << std::endl;
 }
 
 

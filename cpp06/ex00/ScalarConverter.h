@@ -6,6 +6,8 @@
 # include <string>
 # include <climits>
 # include <iomanip>
+# include <algorithm>    // std::find
+
 
 
 class ScalarConverter {
