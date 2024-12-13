@@ -5,7 +5,7 @@
 # include <algorithm>
 # include <string>
 # include <map>
-# include <cstring>
+# include <sstream>
 # include <fstream>
 
 class BitcoinExchange {
