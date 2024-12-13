@@ -7,6 +7,8 @@ S = src
 TARGET = btc 
 
 SRCS = src/main.cpp \
+	src/BitcoinExchange.cpp \
+
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -26,7 +28,6 @@ clean:
 
 fclean: clean
 	rm -f $(TARGET)
-	rm -f *_shrubbery
 	printf "$(YELLOW)Directory is cleaned\n$(WHITE)"
 
 re: fclean all

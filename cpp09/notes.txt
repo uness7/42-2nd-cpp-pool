@@ -1,0 +1,11 @@
+1. Exercise ex00:
+
+- requirements:
+	-> binary file should be named as follows: btc (done)
+	-> program should take a file as an argument
+	-> easy parsing - store the data in a std::map
+	-> we need to do the math and display the output for each line
+	-> If the date used in the input does not exist in your DB then
+		you must use the closest date contained in your DB. 
+		Be careful to use the lower date and not the upper one.
+
