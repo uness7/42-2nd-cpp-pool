@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
 #include <stdlib.h>
+#include<cstdio>
 
 class RPN {
 	public:

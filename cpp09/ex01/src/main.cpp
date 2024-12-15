@@ -4,7 +4,6 @@ int	main(int ac, char *av[])
 {
 	if (ac == 2)
 	{
-		//std::cout << "av: " << av[1] << std::endl;
 		RPN	rpn;
 		rpn.process(av[1]);
 	}

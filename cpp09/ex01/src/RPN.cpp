@@ -23,42 +23,66 @@ void	RPN::split_string(std::string &input, char del, std::string arr[], int &ind
 		arr[index++] = token;
 }
 
-void	RPN::process(char *av)
+void RPN::process(char *av)
 {
-	MutantStack<int>	my_stack;
-	std::string		str(av);
-	std::string		arr[100];
-	int			index = 0;
-	char			del = ' ';
-	
+	MutantStack<int> my_stack;
+	std::string str(av);
+	std::string arr[100];
+	int index = 0;
+	char del = ' ';
+
 	split_string(str, del, arr, index);
-	int	i = 0;
-	while (!arr[i].empty())
+
+	for (int i = 0; !arr[i].empty(); ++i)
 	{
-		//if (std::isdigit(std::atoi(arr[i].c_str())))
-		if (std::stringstream(arr[i]) >> std::ws && std::stringstream(arr[i]).peek() != EOF)
+		std::stringstream ss(arr[i]);
+		int number;
+
+		// If it's a number
+		if (ss >> number && ss.eof())
 		{
-			int	number;
-			std::stringstream	ss;
-			ss << arr[i];
-			ss >> number;
-			std::cout << "number : " << number << std::endl;
 			my_stack.push(number);
+		}
+		// If it's an operator
+		else if (arr[i].length() == 1 && std::string("+-*/").find(arr[i]) != std::string::npos)
+		{
+			if (my_stack.size() < 2)
+			{
+				std::cerr << "Error: Insufficient operands" << std::endl;
+				return;
+			}
+
+			int b = my_stack.top(); my_stack.pop();
+			int a = my_stack.top(); my_stack.pop();
+
+			switch(arr[i][0])
+			{
+				case '+': my_stack.push(a + b); break;
+				case '-': my_stack.push(a - b); break;
+				case '*': my_stack.push(a * b); break;
+				case '/': 
+					  if (b == 0)
+					  {
+						  std::cerr << "Error: Division by zero" << std::endl;
+						  return;
+					  }
+					  my_stack.push(a / b);
+					  break;
+			}
 		}
 		else
 		{
-			std::cout << "oops it's an op" << std::endl;
-			break ;
+			std::cerr << "Error: Invalid token: " << arr[i] << std::endl;
+			return;
 		}
-		i++;
 	}
 
-
-	// displaying the content of my_stack using iterators
-	MutantStack<int>::iterator it = my_stack.begin();
-        MutantStack<int>::iterator ite = my_stack.end();
-
-	while (it != ite)
-		std::cout << *it++ << std::endl;
-
+	if (!my_stack.empty())
+	{
+		std::cout << "Result: " << my_stack.top() << std::endl;
+	}
+	else
+	{
+		std::cerr << "Error: No result" << std::endl;
+	}
 }
