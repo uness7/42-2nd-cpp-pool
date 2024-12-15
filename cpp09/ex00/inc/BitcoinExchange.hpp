@@ -7,6 +7,7 @@
 # include <sstream>
 # include <fstream>
 # include <map>
+# include <limits>
 
 class BitcoinExchange {
 	public:
@@ -20,9 +21,11 @@ class BitcoinExchange {
 		std::map<std::string, float>	getBtc(void) const;
 
 		void	fillInMap(const char* data_file);
-		void	process(void);
+		void	process(std::string& line);
 		void	parse(char *av);
-		void	storeDataIntoMap(std::string & line);
+		bool	isLineValid(std::string &line);
+		bool	isDateAndValueValid(std::string &date, std::string &value);
+
 };
 
 # endif

@@ -1,6 +1,6 @@
 CXX = c++
 INC = inc
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC)
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC) -g
 
 S = src
 
@@ -8,6 +8,7 @@ TARGET = btc
 
 SRCS = src/main.cpp \
        src/BitcoinExchange.cpp \
+	src/Utils.cpp \
 
 
 OBJS = $(SRCS:.cpp=.o)

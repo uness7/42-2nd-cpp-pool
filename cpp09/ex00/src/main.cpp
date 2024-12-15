@@ -10,9 +10,8 @@ int	main(int ac, char **av)
 	{
 		BitcoinExchange	obj;
 		const char* data_file = "data.csv";
-		obj.fillInMap(data_file);
-		//obj.parse(av[1]);
-		//obj.process();
+		obj.fillInMap(data_file); 
+		obj.parse(av[1]);
 		return 0;
 	}
 	std::cout << "Error: could not open file." << std::endl;
