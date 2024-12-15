@@ -9,3 +9,7 @@
 		you must use the closest date contained in your DB. 
 		Be careful to use the lower date and not the upper one.
 
+
+2. Exercise 01: Reverse Polish Notation
+	- requirements:
+		- binary should be named : RPN 
