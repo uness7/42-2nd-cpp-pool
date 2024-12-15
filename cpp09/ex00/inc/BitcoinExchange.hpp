@@ -4,29 +4,25 @@
 # include <iostream>
 # include <algorithm>
 # include <string>
-# include <map>
 # include <sstream>
 # include <fstream>
+# include <map>
 
 class BitcoinExchange {
-	private:
-		std::map<std::string, int>	_btc;
-	
 	public:
-		BitcoinExchange(void);
-		~BitcoinExchange(void);
+		std::map<std::string, float>	_btc;
+		
+		BitcoinExchange();
+		~BitcoinExchange();
 		BitcoinExchange(BitcoinExchange const &src);
 		BitcoinExchange &operator=(BitcoinExchange const &src);
 
+		std::map<std::string, float>	getBtc(void) const;
 
-		std::map<std::string, int>	getBtc(void)	const;
-		void				parse(char *av);
+		void	fillInMap(const char* data_file);
+		void	process(void);
+		void	parse(char *av);
+		void	storeDataIntoMap(std::string & line);
 };
-
-
-/* Non-member functions */
-void    trim(char* str);
-void    splitString(std::string input, char* date, char* value);
-
 
 # endif
