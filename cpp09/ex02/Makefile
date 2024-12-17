@@ -7,7 +7,7 @@ S = src
 TARGET = PmergeMe
 
 SRCS = src/main.cpp \
-	src/PmergeMe.cpp \
+       src/PmergeMe.cpp \
 
 
 OBJS = $(SRCS:.cpp=.o)

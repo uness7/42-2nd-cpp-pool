@@ -7,16 +7,17 @@ int	main(int ac, char **av)
 		PmergeMe	obj;
 		if (!obj.parse(av))
 		{
-			std::cout << "not fine" << std::endl;
+			std::cout << "The sequence contains a negative value or 0" << std::endl;
 			return -1;
 		}
 		obj.fillInContainers(av);
-		std::cout << "before" << std::endl;
-		obj.display();
-		obj.sort();
-		std::cout << "\n\n\n\n\n\n\n\n\n" << std::endl;
-		std::cout << "after" << std::endl;
-		obj.display();
+		if (!obj.isSorted() && !obj.hasDuplicates())
+			obj.display();		
+		else
+		{
+			std::cout << "The sequence is already sorted or has duplicates! " << std::endl;
+			return -1;
+		}
 	}
 	else
 	{

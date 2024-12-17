@@ -2,12 +2,17 @@
 
 
 PmergeMe::PmergeMe(void) {}
+
 PmergeMe::~PmergeMe(void) {}
-PmergeMe::PmergeMe(PmergeMe const &src) {
-	(void)src;
-}
+
+PmergeMe::PmergeMe(PmergeMe const &src) : _vecTime(src._vecTime), _listTime(src._listTime) {}
+
 PmergeMe& PmergeMe::operator=(PmergeMe const &src) {
-	(void)src;
+	if (this != &src)
+	{
+		_vecTime = src._vecTime;
+		_listTime = src._listTime;
+	}
 	return *this;
 }
 
@@ -46,68 +51,62 @@ void	PmergeMe::fillInContainers(char **av)
 	}
 }
 
-std::vector<int>	PmergeMe::getVec(void)	const
-{
-	return this->_vec;
-}
-
 /* ------------------------------------------------------------------------------- */
-
-void	mergeSortedAndSmaller(std::vector<int>& sorted, const std::vector<int>& smaller)
-{
-	for (size_t i = 0; i < smaller.size(); ++i)
-	{
-		std::vector<int>::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), smaller[i]);
-		sorted.insert(pos, smaller[i]);
-	}
-}
-
-std::vector<int>	recursiveSort(std::vector<int> &vec)
-{
-	if (vec.size() <= 1)
-		return vec;
-
-	/* divide into pairs */
-	std::vector<int>	smaller;	
-	std::vector<int>	larger;	
-	
-	for (size_t i = 0; i + 1 <= vec.size(); i += 2)
-	{
-		if (vec[i] < vec[i + 1])
-		{
-			smaller.push_back(vec[i]);
-			larger.push_back(vec[i + 1]);
-		} else {
-			larger.push_back(vec[i]);
-			smaller.push_back(vec[i + 1]);
-		}
-	}
-	
-	/* Handle odd element */
-	if (vec.size() % 2 == 1) larger.push_back(vec.back());
-	
-	std::vector<int>	sortedVec = recursiveSort(larger);
-	
-	/* merge and sort */
-	mergeSortedAndSmaller(sortedVec, smaller);
-	
-	return sortedVec;
-}
-
-void	fordJohnsonSort(std::vector<int> &vec)
-{
-	vec = recursiveSort(vec);
-}
 
 void	PmergeMe::sort(void)
 {
+	std::clock_t	start;
+	std::clock_t	end;
+
+	/* Vector */
+	start = std::clock();
 	fordJohnsonSort(this->_vec);
+	end = std::clock();
+	_vecTime = static_cast<double>(end - start) / CLOCKS_PER_SEC;
+
+	/* List */
+	start = std::clock();
+	fordJohnsonSort(this->_list);
+	end = std::clock();
+	_listTime = static_cast<double>(end - start) / CLOCKS_PER_SEC;
+}
+
+void	PmergeMe::displayVect(std::vector<int>	&vec)
+{
+	int	i = 0;
+	while (vec[i])
+		std::cout << vec[i++] << " ";
 }
 
 void	PmergeMe::display(void)
 {
-	int	i = 0;
-	while (this->_vec[i])
-		std::cout << this->_vec[i++] << " ";
+	// before sorting
+	std::cout << "Before: ";
+	PmergeMe::displayVect(this->_vec);
 	std::cout << std::endl;
+
+	// sorting
+	PmergeMe::sort();
+	std::cout << "After: ";
+
+	// after sorting
+	PmergeMe::displayVect(this->_vec);
+	std::cout << std::endl;
+	std::cout << "Time to process a range of " << this->_vec.size() << " elements with std::vector<int> : " << std::fixed << std::setprecision(6) << this->_vecTime << " us" << std::endl;
+	std::cout << "Time to process a range of " << this->_list.size() << " elements with std::list<int> : " << std::fixed << std::setprecision(6) << this->_listTime << " us" << std::endl;
+}
+
+bool	PmergeMe::isSorted(void)
+{
+	for (size_t i = 0; i + 1 < this->_vec.size(); ++i)
+		if (_vec[i] > _vec[i + 1])
+			return false;
+	return true;
+}
+
+bool	PmergeMe::hasDuplicates(void)
+{
+	std::vector<int>	copy = _vec;
+	std::sort(copy.begin(), copy.end());
+	return std::adjacent_find(copy.begin(), copy.end()) != copy.end();
 }
